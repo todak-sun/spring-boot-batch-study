@@ -9,10 +9,14 @@ import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -58,6 +62,16 @@ public class ScopeJobTestConfigurer {
             log.info(">>>>>>>>>>>>>> requestDate = {}", requestDate);
             return RepeatStatus.FINISHED;
         };
+    }
+
+    @Bean
+    @StepScope
+    public ListItemReader<Integer> simpleWriterReader() {
+        List<Integer> items = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            items.add(i);
+        }
+        return new ListItemReader<>(items);
     }
 
 

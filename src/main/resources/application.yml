@@ -5,12 +5,25 @@ spring:
     job:
       names:
         ${job.name:NONE}
+  jpa:
+    properties:
+      hibernate:
+        foramt_sql: true
 
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+    org.springframeword.batch: debug
 ---
 spring:
   config:
     activate:
       on-profile: h2
+  jpa:
+    hibernate:
+      ddl-auto: create
+
   datasource:
     hikari:
       jdbc-url: jdbc:h2:mem:testdb
@@ -23,6 +36,13 @@ spring:
   config:
     activate:
       on-profile: sqlserver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
   datasource:
     hikari:
       jdbc-url: jdbc:sqlserver://localhost:1433;databaseName=master

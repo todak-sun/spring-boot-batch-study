@@ -1,5 +1,6 @@
 package io.todak.study.springbootbatchstudy.job;
 
+import io.todak.study.springbootbatchstudy.tasklet.SimpleJobTasklet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -22,8 +23,18 @@ public class SimpleJobConfigurer {
     @Bean
     public Job simpleJob() {
         return jobBuilderFactory.get("simpleJob")
-                .start(simpleStep1(null))
+                .start(simpleStep1Di())
                 .next(simpleStep2(null))
+                .build();
+    }
+
+
+    private final SimpleJobTasklet tasklet1;
+
+    public Step simpleStep1Di(){
+        log.info(">>>>>>>>>>>>>>>> definition simpleStep1Di");
+        return stepBuilderFactory.get("simpleStep1")
+                .tasklet(tasklet1)
                 .build();
     }
 
