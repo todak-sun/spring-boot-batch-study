@@ -13,3 +13,6 @@ create table PAY2 (
      TX_DATE_TIME datetime,
      primary key (PAY_ID)
 );
+
+SELECT * FROM PAGE_WARN WHERE SUCCESS_STATUS = 1;
+UPDATE PAGE_WARN SET SUCCESS_STATUS = 1 WHERE 1=1;

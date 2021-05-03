@@ -7,5 +7,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @EnableBatchProcessing
-public class TestBatchConfig {
+public class TestBatchConfigurer {
+
+//    @Bean
+//    public JobLauncherTestUtils jobLauncherTestUtils() {
+//        return new JobLauncherTestUtils();
+//    }
+
+
 }
