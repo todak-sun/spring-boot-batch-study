@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: test
+    active: local
   batch:
     job:
       names: ${job.name:NONE}
@@ -13,7 +13,7 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug
-    org.hibernate.type: trace
+#    org.hibernate.type: trace
     org.springframeword.batch: debug
 
 ---
@@ -44,7 +44,6 @@ spring:
       on-profile: test
   datasource:
     driver-class-name: org.h2.Driver
-    data: classpath:sql/person.sql
   batch:
     job:
       names: ${job.name:NONE}
