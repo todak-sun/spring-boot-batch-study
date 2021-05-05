@@ -19,10 +19,7 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -104,7 +101,7 @@ public class ItemReaderConfiguration {
                 .name("jdbcCursorItemReader")
                 .dataSource(dataSource)
                 .sql("SELECT ID, NAME, AGE, ADDRESS FROM PERSON")
-                .rowMapper((rs, rownum) -> new Person(rs.getInt(1),
+                .rowMapper((rs, rownum) -> new Person(rs.getLong(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4)))
@@ -122,7 +119,7 @@ public class ItemReaderConfiguration {
         lineMapper.setLineTokenizer(tokenizer);
 
         lineMapper.setFieldSetMapper(fieldSet -> {
-            int id = fieldSet.readInt("id");
+            Long id = fieldSet.readLong("id");
             String name = fieldSet.readString("name");
             String age = fieldSet.readString("age");
             String address = fieldSet.readString("address");
@@ -132,7 +129,7 @@ public class ItemReaderConfiguration {
         FlatFileItemReader<Person> itemReader = new FlatFileItemReaderBuilder<Person>()
                 .name("csvFileItemReader")
                 .encoding("UTF-8")
-                .resource(new ClassPathResource("test.csv"))
+                .resource(new ClassPathResource("csv/test.csv"))
                 .linesToSkip(1)
                 .lineMapper(lineMapper)
                 .build();
@@ -150,7 +147,7 @@ public class ItemReaderConfiguration {
     private List<Person> getItems() {
         List<Person> items = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            items.add(new Person(i + 1, "test name " + i, "test age", "test address"));
+            items.add(new Person(i + 1L, "test name " + i, "test age", "test address"));
         }
         return items;
     }

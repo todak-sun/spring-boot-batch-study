@@ -41,7 +41,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: test
+      on-profile: h2
   datasource:
     driver-class-name: org.h2.Driver
   batch:

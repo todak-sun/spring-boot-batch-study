@@ -16,7 +16,7 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Long id;
 
     @Nationalized
     @Column(name = "NAME")
@@ -36,7 +36,7 @@ public class Person {
         this.address = address;
     }
 
-    public Person(int id, String name, String age, String address) {
+    public Person(Long id, String name, String age, String address) {
         this.id = id;
         this.name = name;
         this.age = age;
